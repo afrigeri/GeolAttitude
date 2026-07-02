@@ -1,0 +1,17 @@
+[general]
+name=GeolAttitude
+qgisMinimumVersion=3.44
+qgisMaximumVersion=3.99
+description=Compute dip, dip direction and strike from interactively selected points sampled from a DTM raster.
+version=0.1.0-qgis3.44
+author=Alessandro Frigeri
+email=alessandro.frigeri@inaf.it
+about=Plugin Builder 3 style QGIS 3.44 plugin. Click points on imagery or map canvas, sample elevation from a selected DTM, fit a best-fit plane and compute structural attitude parameters. Designed for terrestrial and planetary projected DTMs.
+tracker=
+repository=
+category=Analysis
+icon=icon.png
+experimental=True
+deprecated=False
+tags=geology, structural geology, dip, strike, dip direction, DEM, DTM, planetary geology
+homepage=
