@@ -124,12 +124,12 @@ class GeolAttitudeDockWidget(QDockWidget):
 
         self.fitMethod = QComboBox()
         self.fitMethod.addItem("Least Squares", "least_squares")
-        #self.fitMethod.addItem("Total Least Squares", "tls")
-        self.fitMethod.addItem("PCA / SVD", "pca")
-        #self.fitMethod.addItem("Weighted LS", "wls")
-        #self.fitMethod.addItem("RANSAC", "ransac")
-        #self.fitMethod.addItem("Huber", "huber")
-        layout.addWidget(QLabel("Plane fit"))
+        # self.fitMethod.addItem("Total Least Squares", "tls")
+        # self.fitMethod.addItem("PCA / SVD", "pca")
+        # self.fitMethod.addItem("Weighted LS", "wls")
+        # self.fitMethod.addItem("RANSAC", "ransac")
+        # self.fitMethod.addItem("Huber", "huber")
+        layout.addWidget(QLabel("Plane fit method:"))
         layout.addWidget(self.fitMethod)
 
         self.refresh_button = QPushButton("Refresh raster list")
