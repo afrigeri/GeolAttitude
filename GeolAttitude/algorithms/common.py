@@ -77,3 +77,19 @@ def plane_coefficients_from_normal(normal, centroid):
 
 def base_result(method, normal, centroid, n):
     """Create the common part of a plane-fit result dictionary."""
+    normal, dip, dip_direction, strike_rhr = orientation_from_normal(normal)
+    a, b, c = plane_coefficients_from_normal(normal, centroid)
+
+    return {
+        "method": method,
+        "n": int(n),
+        "normal": normal,
+        "centroid": centroid,
+        "a": a,
+        "b": b,
+        "c": c,
+        "dip": dip,
+        "dip_direction": dip_direction,
+        "strike_rhr": strike_rhr,
+        "timestamp": datetime.now().isoformat(timespec="seconds"),
+    }

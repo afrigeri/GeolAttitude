@@ -40,3 +40,5 @@ def fit_least_squares(points):
             "residuals": residual_vec,
         }
     )
+
+    return result

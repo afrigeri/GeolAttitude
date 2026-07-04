@@ -27,3 +27,5 @@ class PlaneFitter:
             raise ValueError(
                 f"Unknown plane fitting method '{method}'. Available: {available}"
             ) from exc
+
+        return algorithm(points)

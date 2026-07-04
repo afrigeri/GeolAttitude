@@ -125,7 +125,7 @@ class GeolAttitudeDockWidget(QDockWidget):
         self.fitMethod = QComboBox()
         self.fitMethod.addItem("Least Squares", "least_squares")
         # self.fitMethod.addItem("Total Least Squares", "tls")
-        # self.fitMethod.addItem("PCA / SVD", "pca")
+        self.fitMethod.addItem("PCA / SVD", "pca_svd")
         # self.fitMethod.addItem("Weighted LS", "wls")
         # self.fitMethod.addItem("RANSAC", "ransac")
         # self.fitMethod.addItem("Huber", "huber")
@@ -320,52 +320,6 @@ class GeolAttitudeDockWidget(QDockWidget):
         result = PlaneFitter.fit(points, method=method)
         return result
 
-    @staticmethod
-    def fit_plane_old(points):
-        """Fit z = ax + by + c using least squares.
-
-        Coordinates must use compatible linear units: x east, y north, z up.
-        Dip direction is azimuth clockwise from north toward steepest descent.
-        """
-        if len(points) < 3:
-            raise ValueError("At least three points are required.")
-        arr = np.array([[p["x"], p["y"], p["z"]] for p in points], dtype=float)
-        x = arr[:, 0]
-        y = arr[:, 1]
-        z = arr[:, 2]
-        matrix = np.column_stack([x, y, np.ones_like(x)])
-        coeff, residuals, rank, singular_values = np.linalg.lstsq(matrix, z, rcond=None)
-        if rank < 3:
-            raise ValueError(
-                "The selected points are nearly collinear or numerically degenerate."
-            )
-        a, b, c = coeff
-        slope = math.hypot(a, b)
-        dip = math.degrees(math.atan(slope))
-        dip_direction = (math.degrees(math.atan2(-a, -b)) + 360.0) % 360.0
-        strike_rhr = (dip_direction - 90.0) % 360.0
-        z_fit = matrix @ coeff
-        residual_vec = z - z_fit
-        rmse = math.sqrt(float(np.mean(residual_vec**2)))
-        max_abs_resid = float(np.max(np.abs(residual_vec)))
-        normal = np.array([-a, -b, 1.0], dtype=float)
-        normal /= np.linalg.norm(normal)
-        return {
-            "a": float(a),
-            "b": float(b),
-            "c": float(c),
-            "dip": float(dip),
-            "dip_direction": float(dip_direction),
-            "strike_rhr": float(strike_rhr),
-            "rmse": float(rmse),
-            "max_abs_resid": float(max_abs_resid),
-            "normal": normal,
-            "rank": int(rank),
-            "singular_values": singular_values,
-            "n": len(points),
-            "timestamp": datetime.now().isoformat(timespec="seconds"),
-        }
-
     def compute_and_display(self, create_layer=None):
         """Compute and display attitude."""
         if len(self.points) < 3:
@@ -381,16 +335,24 @@ class GeolAttitudeDockWidget(QDockWidget):
             )
         try:
             result = self.fit_plane(self.points)
+            if result is None:
+                QMessageBox.critical(
+                    self,
+                    "Plane fit failed",
+                    "The selected fitting algorithm returned no result.",
+                )
+                return
         except Exception as exc:  # pylint: disable=broad-except
-            QMessageBox.critical(self, "Plane fit failed", str(exc))
+            QMessageBox.critical(self, "Plane fit failed: ", str(exc))
             return
         self.last_result = result
         lines = [
-            "GeolAttitude result",
-            "==================",
+            "GeolAttitude results",
+            "===================",
             f"Selected points: {result['n']}",
             "",
             f"Best-fit plane: z = {result['a']:.8g} x + {result['b']:.8g} y + {result['c']:.8g}",
+            f"Method: {self.fitMethod.currentData():s}",
             f"Dip: {result['dip']:.2f} deg",
             f"Dip direction: {result['dip_direction']:.2f} deg azimuth",
             f"Strike RHR: {result['strike_rhr']:.2f} deg",
