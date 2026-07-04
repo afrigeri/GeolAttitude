@@ -1,5 +1,7 @@
 # GeolAttitude QGIS Plug-in
 
+**(c) 2026 - Alessandro Frigeri, Italian National Institute for Astrophysics (INAF)**
+
 In geology, attitude refers to the three-dimensional orientation of a rock feature in space. For planar surfaces (like bedding planes or faults), it is defined by strike and dip, or by dip direction and dip. For linear features (like fold axes or faults), it is defined by trend and plunge.
 
 The geometric elements are defined as:
