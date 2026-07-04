@@ -102,7 +102,8 @@ class GeolAttitudeDockWidget(QDockWidget):
 
         row3 = QHBoxLayout()
         self.compute_button = QPushButton("Compute")
-        self.compute_button.clicked.connect(self.compute_and_display)
+        # self.compute_button.clicked.connect(self.compute_and_display)
+        self.compute_button.clicked.connect(self.on_compute_clicked)
         row3.addWidget(self.compute_button)
         self.export_csv_button = QPushButton("Export CSV")
         self.export_csv_button.clicked.connect(self.export_csv)
@@ -137,6 +138,9 @@ class GeolAttitudeDockWidget(QDockWidget):
         layout.addWidget(self.refresh_button)
 
         self.setWidget(wrapper)
+
+    def on_compute_clicked(self):
+        self.compute_and_display(create_layer=None)
 
     def refresh_rasters(self):
         """Refresh raster combo from current project layers."""
