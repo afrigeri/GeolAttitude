@@ -32,8 +32,45 @@ def normalize_vector(vector):
 
     return vector / norm
 
-
 def orientation_from_normal(normal):
+    """
+    Compute geological orientation from an upward-pointing normal.
+
+    Coordinates are assumed to be x=east, y=north, z=up.
+    Dip direction is the azimuth of steepest descent, clockwise from north.
+    Strike is returned using the right-hand rule.
+    
+    Parameters
+    ----------
+    normal : array-like
+        Unit normal vector with nz > 0.
+
+    Returns
+    -------
+    dip : float
+    dip_direction : float
+    strike_rhr : float
+    """
+    
+    nx, ny, nz = normal
+
+    # Ensure upward-pointing normal
+    if nz < 0:
+        nx, ny, nz = -nx, -ny, -nz
+
+    dip = math.degrees(math.atan2(math.hypot(nx, ny), nz))
+
+    dip_direction = (
+        math.degrees(math.atan2(nx, ny))
+        + 360.0
+    ) % 360.0
+
+    strike_rhr = (dip_direction - 90.0) % 360.0
+
+    return normal, dip, dip_direction, strike_rhr
+    
+    
+def orientation_from_normal_old(normal):
     """Compute geological orientation from an upward-pointing plane normal.
 
     Coordinates are assumed to be x=east, y=north, z=up.

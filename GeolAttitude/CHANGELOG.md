@@ -14,6 +14,17 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/), and t
 
 ### Fixed
 
+## [0.2.7] - 2026-07-06
+
+### Added
+* RANSAC method
+
+### Changed
+* improved orientation_from_normal
+
+### Fixed
+
+
 
 ---
 

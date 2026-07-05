@@ -143,3 +143,24 @@ def test_unknown_method_raises_value_error():
 
     with pytest.raises(ValueError):
         PlaneFitter.fit(points, method="wrong_method")
+        
+        
+def test_ransac_rejects_outlier():
+    points = [
+        {"x": 0, "y": 0, "z": 0},
+        {"x": 1, "y": 0, "z": -1},
+        {"x": 0, "y": 1, "z": 0},
+        {"x": 1, "y": 1, "z": -1},
+        {"x": 2, "y": 1, "z": -2},
+        {"x": 100, "y": 100, "z": 1000},  # outlier
+    ]
+
+    result = PlaneFitter.fit(points, method="ransac")
+
+    assert result["method"] == "ransac"
+    assert result["inliers"] >= 5
+    assert result["outliers"] >= 1
+    assert_angle_close(result["dip_direction"], 90.0)
+    assert result["dip"] == pytest.approx(45.0, abs=1.0)
+    
+            
