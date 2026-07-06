@@ -28,3 +28,7 @@ When using RANSAC, the plugin also reports:
 CSV export writes the fitting method stored in the computed result, so exported
 rows identify whether the result was produced with least squares, PCA/SVD or
 RANSAC.
+
+When result-layer creation is enabled, GeolAttitude creates a ``PointZ`` memory
+layer. Each point stores the sampled elevation both as geometry Z and in the
+``elevation`` attribute.

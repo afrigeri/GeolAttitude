@@ -43,6 +43,7 @@ from qgis.core import (
     QgsRaster,
     QgsVectorLayer,
     QgsWkbTypes,
+    QgsPoint,
     QgsPointXY,
     QgsMarkerSymbol,
 )
@@ -389,9 +390,9 @@ class GeolAttitudeDockWidget(QDockWidget):
             self.create_result_layer(result)
 
     def create_result_layer(self, result):
-        """Create a memory point layer containing sampled points and attitude attributes."""
+        """Create a PointZ memory layer containing sampled points and attitude attributes."""
         crs_auth = self.canvas.mapSettings().destinationCrs().authid()
-        uri = "Point"
+        uri = "PointZ"
         if crs_auth:
             uri += f"?crs={crs_auth}"
         layer = QgsVectorLayer(uri, "geolattitude_points", "memory")
@@ -414,7 +415,7 @@ class GeolAttitudeDockWidget(QDockWidget):
         for idx, point in enumerate(self.points, 1):
             feat = QgsFeature(layer.fields())
             feat.setGeometry(
-                QgsGeometry.fromPointXY(QgsPointXY(point["x"], point["y"]))
+                QgsGeometry.fromPoint(QgsPoint(point["x"], point["y"], point["z"]))
             )
             feat.setAttributes(
                 [

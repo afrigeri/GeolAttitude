@@ -12,7 +12,7 @@ Features
 * Strike, dip and dip direction
 * Residual statistics
 * Outlier detection
-* Automatic point layer generation
+* Automatic 3D point layer generation
 
 Contents
 --------
