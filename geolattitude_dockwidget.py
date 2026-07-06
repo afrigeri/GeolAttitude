@@ -11,6 +11,7 @@ import csv
 import math
 import os
 
+from .models.point import DigitizedPoint
 
 from .plane_fitter import PlaneFitter
 
@@ -60,7 +61,7 @@ class GeolAttitudeDockWidget(QDockWidget):
         self.iface = iface
         self.plugin = plugin
         self.canvas = iface.mapCanvas()
-        self.points = []
+        self.points = list[DigitizedPoint]
         self.markers = []
         self.rubber_band = None
         self.last_result = None
@@ -185,9 +186,19 @@ class GeolAttitudeDockWidget(QDockWidget):
             QMessageBox.warning(self, "No raster value", message)
             return
 
-        self.points.append(
-            {"x": map_point.x(), "y": map_point.y(), "z": z, "raster": raster.name()}
+        # self.points.append(
+        #    {"x": map_point.x(), "y": map_point.y(), "z": z, "raster": raster.name()}
+        # )
+
+        p = DigitizedPoint(
+            pid=len(self.points) + 1,
+            x=point.x(),
+            y=point.y(),
+            z=z,
         )
+
+        self.points.append(p)
+
         self._add_marker(map_point)
         self._update_rubber_band()
         if self.live_check.isChecked() and len(self.points) >= 3:
@@ -338,6 +349,7 @@ class GeolAttitudeDockWidget(QDockWidget):
             )
         try:
             result = self.fit_plane(self.points)
+
             if result is None:
                 QMessageBox.critical(
                     self,
