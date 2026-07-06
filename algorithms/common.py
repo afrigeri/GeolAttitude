@@ -7,11 +7,18 @@ import numpy as np
 
 
 def points_to_array(points):
-    """Convert a list of point dictionaries to an Nx3 NumPy array."""
+    """Convert point dictionaries or DigitizedPoint objects to an Nx3 NumPy array."""
     if len(points) < 3:
         raise ValueError("At least three points are required.")
 
-    arr = np.array([[p["x"], p["y"], p["z"]] for p in points], dtype=float)
+    rows = []
+    for p in points:
+        if isinstance(p, dict):
+            rows.append([p["x"], p["y"], p["z"]])
+        else:
+            rows.append([p.x, p.y, p.z])
+
+    arr = np.array(rows, dtype=float)
 
     if arr.ndim != 2 or arr.shape[1] != 3:
         raise ValueError("Points must define x, y, z coordinates.")

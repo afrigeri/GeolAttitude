@@ -190,14 +190,15 @@ class GeolAttitudeDockWidget(QDockWidget):
         #    {"x": map_point.x(), "y": map_point.y(), "z": z, "raster": raster.name()}
         # )
 
-        p = DigitizedPoint(
-            pid=len(self.points) + 1,
-            x=point.x(),
-            y=point.y(),
-            z=z,
+        self.points.append(
+            DigitizedPoint(
+                pid=len(self.points) + 1,
+                x=float(map_point.x()),
+                y=float(map_point.y()),
+                z=float(z),
+                source=raster.name(),
+            )
         )
-
-        self.points.append(p)
 
         self._add_marker(map_point)
         self._update_rubber_band()
@@ -292,7 +293,7 @@ class GeolAttitudeDockWidget(QDockWidget):
             self.rubber_band.setWidth(2)
         self.rubber_band.reset(self._geometry_type("line"))
         for point in self.points:
-            self.rubber_band.addPoint(QgsPointXY(point["x"], point["y"]), False)
+            self.rubber_band.addPoint(QgsPointXY(point.x, point.y), False)
         self.rubber_band.show()
 
     def undo_point(self):
@@ -349,6 +350,12 @@ class GeolAttitudeDockWidget(QDockWidget):
             )
         try:
             result = self.fit_plane(self.points)
+
+            for point, resid in zip(
+                self.points, result.get("orthogonal_residuals", [])
+            ):
+                point.orthogonal_residual = float(resid)
+                point.abs_orthogonal_residual = abs(float(resid))
 
             if result is None:
                 QMessageBox.critical(
@@ -433,9 +440,7 @@ class GeolAttitudeDockWidget(QDockWidget):
 
         for idx, point in enumerate(self.points, 1):
             feat = QgsFeature(layer.fields())
-            feat.setGeometry(
-                QgsGeometry.fromPoint(QgsPoint(point["x"], point["y"], point["z"]))
-            )
+            feat.setGeometry(QgsGeometry.fromPoint(QgsPoint(point.x, point.y, point.z)))
 
             resid = (
                 orthogonal_residuals[idx - 1]
@@ -450,10 +455,10 @@ class GeolAttitudeDockWidget(QDockWidget):
 
             feat.setAttributes(
                 [
-                    idx,
-                    point["z"],
-                    resid,
-                    abs_resid,
+                    point.pid,
+                    point.z,
+                    point.orthogonal_residual,
+                    point.abs_orthogonal_residual,
                     result["dip"],
                     result["dip_direction"],
                     result["strike_rhr"],
@@ -510,9 +515,9 @@ class GeolAttitudeDockWidget(QDockWidget):
                 writer.writerow(
                     [
                         idx,
-                        point["x"],
-                        point["y"],
-                        point["z"],
+                        point.x,
+                        point.y,
+                        point.z,
                         result.get("resid", ""),
                         result.get("abs_resid", ""),
                         result.get("dip", ""),
