@@ -61,7 +61,7 @@ class GeolAttitudeDockWidget(QDockWidget):
         self.iface = iface
         self.plugin = plugin
         self.canvas = iface.mapCanvas()
-        self.points = list[DigitizedPoint]
+        self.points: list[DigitizedPoint] = []
         self.markers = []
         self.rubber_band = None
         self.last_result = None
@@ -186,19 +186,15 @@ class GeolAttitudeDockWidget(QDockWidget):
             QMessageBox.warning(self, "No raster value", message)
             return
 
-        # self.points.append(
-        #    {"x": map_point.x(), "y": map_point.y(), "z": z, "raster": raster.name()}
-        # )
-
-        self.points.append(
-            DigitizedPoint(
-                pid=len(self.points) + 1,
-                x=float(map_point.x()),
-                y=float(map_point.y()),
-                z=float(z),
-                source=raster.name(),
-            )
+        p = DigitizedPoint(
+            pid=len(self.points) + 1,
+            x=float(map_point.x()),
+            y=float(map_point.y()),
+            z=float(z),
+            source=raster.name(),
         )
+
+        self.points.append(p)
 
         self._add_marker(map_point)
         self._update_rubber_band()

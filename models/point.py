@@ -10,15 +10,15 @@ class DigitizedPoint:
     x: float
     y: float
     z: float
-
     source: str = "map"
     active: bool = True
-
     orthogonal_residual: Optional[float] = None
     abs_orthogonal_residual: Optional[float] = None
-
     note: str = ""
 
     @property
     def xyz(self):
         return (self.x, self.y, self.z)
+
+    def to_algorithm_dict(self):
+        return {"x": self.x, "y": self.y, "z": self.z}
