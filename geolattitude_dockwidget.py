@@ -404,10 +404,16 @@ class GeolAttitudeDockWidget(QDockWidget):
                 QgsField("strike", QVariant.Double),
                 QgsField("rmse", QVariant.Double),
                 QgsField("npoints", QVariant.Int),
+                QgsField("resid", QVariant.Double),
+                QgsField("abs_resid", QVariant.Double),
                 QgsField("method", QVariant.String),
             ]
         )
         layer.updateFields()
+        
+        orthogonal_residuals = result.get("orthogonal_residuals", [])
+        abs_orthogonal_residuals = result.get("abs_orthogonal_residuals", [])
+        
         features = []
         method = self.fitMethod.currentData()
         for idx, point in enumerate(self.points, 1):
@@ -415,6 +421,10 @@ class GeolAttitudeDockWidget(QDockWidget):
             feat.setGeometry(
                 QgsGeometry.fromPoint(QgsPoint(point["x"], point["y"], point["z"]))
             )
+            
+            #resid = orthogonal_residuals[idx - 1] if idx - 1 < len(orthogonal_residuals) else None
+            #abs_resid = abs_orthogonal_residuals[idx - 1] if idx - 1 < len(abs_orthogonal_residuals) else None
+            
             feat.setAttributes(
                 [
                     idx,

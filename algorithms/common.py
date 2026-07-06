@@ -236,6 +236,7 @@ def compute_plane_statistics(points, normal, centroid, inlier_indices=None):
     #arr = points_to_array(points)
 
     orthogonal_residuals = point_plane_residuals(points, normal, centroid)
+    abs_orthogonal_residuals = np.abs(orthogonal_residuals)
 
     temp = base_result("statistics", normal, centroid, len(points))
     a, b, c = temp["a"], temp["b"], temp["c"]
@@ -251,12 +252,14 @@ def compute_plane_statistics(points, normal, centroid, inlier_indices=None):
     used_vertical = vertical_residuals[used_indices]
 
     return {
+        "abs_orthogonal_residuals": abs_orthogonal_residuals.tolist(),
+        "abs_residuals": abs_orthogonal_residuals.tolist(),
         "residuals": orthogonal_residuals.tolist(),
         "orthogonal_residuals": orthogonal_residuals.tolist(),
         "vertical_residuals": vertical_residuals.tolist(),
         "inlier_residuals": used_orthogonal.tolist(),
         "inlier_vertical_residuals": used_vertical.tolist(),
-        "rmse": float(np.sqrt(np.mean(used_orthogonal**2))),
+        "rms    e": float(np.sqrt(np.mean(used_orthogonal**2))),
         "orthogonal_rmse": float(np.sqrt(np.mean(used_orthogonal**2))),
         "vertical_rmse": float(np.sqrt(np.mean(used_vertical**2))),
         "max_abs_resid": float(np.max(np.abs(used_orthogonal))),
