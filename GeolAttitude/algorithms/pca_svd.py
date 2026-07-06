@@ -13,7 +13,7 @@ from .common import (
 )
 
 
-from .utils import point_plane_residuals
+#from .utils import point_plane_residuals
 
 def fit_pca_svd(points):
     """Fit a plane using PCA/SVD and orthogonal distances.
@@ -42,6 +42,7 @@ def fit_pca_svd(points):
     max_abs_resid = np.max(np.abs(residuals))
 
     result = base_result("pca_svd", normal, centroid, len(points))
+        
     result.update(
         {
             "rmse": rmse,
@@ -52,4 +53,10 @@ def fit_pca_svd(points):
             "residuals": orthogonal_residuals,
         }
     )
-    return result
+    
+    result["rmse"] = rmse
+    result["max_abs_resid"] = max_abs_resid
+
+    return add_point_usage_fields(result, points)
+    
+    #return result

@@ -6,9 +6,10 @@ from .common import (
     base_result,
     normalize_vector,
     points_to_array,
+    point_plane_residuals
 )
 
-from .utils import point_plane_residuals
+#from .utils import point_plane_residuals
 
 
 def _plane_from_three_points(p1, p2, p3):

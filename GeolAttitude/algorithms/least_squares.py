@@ -48,6 +48,9 @@ def fit_least_squares(points):
         max_abs_resid=max_abs_resid,
     )
     
+    result["rmse"] = rmse
+    result["max_abs_resid"] = max_abs_resid
+    
     result.update(
         {
             "a": float(a),
@@ -61,4 +64,5 @@ def fit_least_squares(points):
         }
     )
 
-    return result
+    #return result
+    return add_point_usage_fields(result, points)
