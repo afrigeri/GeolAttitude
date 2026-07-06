@@ -318,7 +318,7 @@ class GeolAttitudeDockWidget(QDockWidget):
         lines = [f"Sampled points: {len(self.points)}", ""]
         for idx, point in enumerate(self.points, 1):
             lines.append(
-                f"{idx}: X={point['x']:.3f}, Y={point['y']:.3f}, Z={point['z']:.3f}"
+                f"{idx}: X={point.x:.3f}, Y={point.y:.3f}, Z={point.z:.3f}"
             )
         self.output.setPlainText("\n".join(lines))
 
@@ -394,7 +394,7 @@ class GeolAttitudeDockWidget(QDockWidget):
         lines.append("Points:")
         for idx, point in enumerate(self.points, 1):
             lines.append(
-                f"{idx}: X={point['x']:.3f}, Y={point['y']:.3f}, Z={point['z']:.3f}"
+                f"{idx}: X={point.x:.3f}, Y={point.y:.3f}, Z={point.z:.3f}"
             )
         self.output.setPlainText("\n".join(lines))
         if create_layer is None:
