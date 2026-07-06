@@ -11,6 +11,9 @@ from .common import (
 )
 
 
+from .bootstrap import bootstrap_orientation_uncertainty
+
+
 def fit_pca_svd(points):
     """Fit a plane using PCA/SVD and orthogonal distances.
 
@@ -43,5 +46,15 @@ def fit_pca_svd(points):
     )
 
     result.update(compute_plane_statistics(points, normal, centroid))
+
+    result.update(
+        bootstrap_orientation_uncertainty(
+            points,
+            result["normal"],
+            n_bootstrap=1000,
+            confidence=95.0,
+            random_seed=42,
+        )
+    )
 
     return add_point_usage_fields(result, points)

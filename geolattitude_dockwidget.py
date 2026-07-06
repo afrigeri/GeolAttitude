@@ -388,6 +388,28 @@ class GeolAttitudeDockWidget(QDockWidget):
             lines.append(f"Rejected outliers: {len(outlier_indices)}")
             lines.append(f"Outlier point numbers: {outlier_text}")
 
+        if result.get("bootstrap_success"):
+            lines.extend(
+                [
+                    "",
+                    "Bootstrap orientation uncertainty:",
+                    f"Bootstrap samples: {result['bootstrap_n']}",
+                    f"95% normal confidence cone: {result['normal_confidence_cone_deg']:.2f}°",
+                    f"Dip std: {result['dip_bootstrap_std']:.2f}°",
+                    f"Dip direction std: {result['dip_direction_bootstrap_std']:.2f}°",
+                    (
+                        "Dip 95% CI: "
+                        f"{result['dip_bootstrap_ci_low']:.2f}° – "
+                        f"{result['dip_bootstrap_ci_high']:.2f}°"
+                    ),
+                    (
+                        "Dip direction 95% CI: "
+                        f"{result['dip_direction_bootstrap_ci_low']:.2f}° – "
+                        f"{result['dip_direction_bootstrap_ci_high']:.2f}°"
+                    ),
+                ]
+            )
+
         lines.append("")
         lines.append("Points:")
         for idx, point in enumerate(self.points, 1):

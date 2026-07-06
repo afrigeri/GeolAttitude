@@ -9,6 +9,8 @@ from .common import (
     compute_plane_statistics,
 )
 
+from .bootstrap import bootstrap_orientation_uncertainty
+
 
 def fit_least_squares(points):
     """Fit z = ax + by + c using ordinary least squares."""
@@ -42,5 +44,15 @@ def fit_least_squares(points):
     )
 
     result.update(compute_plane_statistics(points, normal, centroid))
+
+    result.update(
+        bootstrap_orientation_uncertainty(
+            points,
+            result["normal"],
+            n_bootstrap=1000,
+            confidence=95.0,
+            random_seed=42,
+        )
+    )
 
     return add_point_usage_fields(result, points)
