@@ -7,6 +7,7 @@ from qgis.PyQt.QtCore import Qt
 QGIS_VERSION_INT = Qgis.QGIS_VERSION_INT
 IS_QGIS4 = QGIS_VERSION_INT >= 40000
 
+"""
 from qgis.PyQt.QtCore import Qt, QVariant, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import (
@@ -20,6 +21,12 @@ from qgis.PyQt.QtWidgets import (
     QTextEdit,
     QComboBox,
 )
+"""
+
+try:
+    from qgis.PyQt.QtGui import QAction
+except ImportError:
+    from qgis.PyQt.QtWidgets import QAction
 
 try:
     RIGHT_DOCK_WIDGET_AREA = Qt.DockWidgetArea.RightDockWidgetArea  # Qt6 / QGIS4

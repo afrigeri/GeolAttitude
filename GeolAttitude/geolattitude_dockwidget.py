@@ -365,22 +365,18 @@ class GeolAttitudeDockWidget(QDockWidget):
             f"Vertical RMSE: {result['vertical_rmse']:.3f}",
             f"Max orthogonal residual: {result['max_abs_orthogonal_residual']:.3f}",
             f"Max vertical residual: {result['max_abs_vertical_residual']:.3f}",
-            "",
-            "Points:",
         ]
         if result["method"] == "ransac":
-            lines.append(f"Rejected outliers: {result.get('rejected_outliers', 0)}")
-
             outlier_indices = result.get("outlier_indices", [])
-            lines.append(f"Rejected outliers: {len(outlier_indices)}")
-
             if outlier_indices:
                 outlier_text = ", ".join(str(i + 1) for i in outlier_indices)
             else:
                 outlier_text = "none"
+            lines.append("")
+            lines.append(f"Rejected outliers: {len(outlier_indices)}")
             lines.append(f"Outlier point numbers: {outlier_text}")
 
-        # Add points to the terminal display
+        lines.append("")
         lines.append("Points:")
         for idx, point in enumerate(self.points, 1):
             lines.append(

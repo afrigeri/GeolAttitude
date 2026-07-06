@@ -56,6 +56,26 @@ def test_known_plane_coefficients_least_squares():
     assert result["rmse"] == pytest.approx(0.0, abs=1e-9)
 
 
+def test_least_squares_reports_unit_upward_normal():
+    xy = [
+        (0, 0),
+        (1, 0),
+        (0, 1),
+        (2, 1),
+        (1, 2),
+        (3, 2),
+    ]
+    points = make_points_from_plane(a=2.0, b=-3.0, c=5.0, xy=xy)
+
+    result = PlaneFitter.fit(points, method="least_squares")
+    normal_length = math.sqrt(
+        sum(float(component) ** 2 for component in result["normal"])
+    )
+
+    assert normal_length == pytest.approx(1.0, abs=1e-12)
+    assert result["normal"][2] > 0.0
+
+
 def test_east_dipping_plane_has_dip_direction_90():
     # z decreases eastward, so the plane dips toward East.
     points = make_points_from_plane(

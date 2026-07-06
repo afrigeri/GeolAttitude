@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 project = 'GeolAttitude'
 copyright = '2026, Alessandro Frigeri'
 author = 'Alessandro Frigeri'
-release = '0.2.6'
+release = '0.2.9'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

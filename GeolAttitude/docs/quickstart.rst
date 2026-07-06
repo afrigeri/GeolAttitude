@@ -13,11 +13,18 @@ The plugin displays:
 * Strike
 * Dip
 * Dip Direction
-* RMSE
-* Maximum residual
+* Upward-pointing unit plane normal
+* Orthogonal RMSE
+* Vertical RMSE
+* Maximum orthogonal residual
+* Maximum vertical residual
 
 When using RANSAC, the plugin also reports:
 
 * Number of inliers
 * Number of rejected outliers
 * Outlier indices
+
+CSV export writes the fitting method stored in the computed result, so exported
+rows identify whether the result was produced with least squares, PCA/SVD or
+RANSAC.

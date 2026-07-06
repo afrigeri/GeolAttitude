@@ -190,7 +190,7 @@ therefore GeolAttitude always forces
 
    n_z > 0,
 
-ensuring a unique upward-pointing normal.
+ensuring a unique upward-pointing unit normal.
 
 Dip and Dip Direction
 ---------------------
@@ -240,11 +240,11 @@ Once the normal vector is known, the orthogonal residual of each point is
    \cdot
    (\mathbf{p}_i-\mathbf{c}).
 
-The Root Mean Square Error (RMSE) is
+The orthogonal Root Mean Square Error (RMSE) is
 
 .. math::
 
-   \mathrm{RMSE}
+   \mathrm{RMSE}_{orthogonal}
    =
    \sqrt{
    \frac1N
@@ -252,8 +252,18 @@ The Root Mean Square Error (RMSE) is
    d_i^2
    }.
 
-RMSE provides an estimate of how closely the sampled points follow a planar
-surface.
+GeolAttitude also reports vertical residuals against the equivalent
+``z = ax + by + c`` plane when that representation is available,
+
+.. math::
+
+   r_i
+   =
+   z_i - (a x_i + b y_i + c),
+
+and their corresponding vertical RMSE. Orthogonal residuals are the preferred
+geometric measure of point-to-plane fit, while vertical residuals are useful
+when comparing fitted elevations against the DTM samples.
 
 Advantages of PCA-SVD
 ---------------------
@@ -293,9 +303,9 @@ The PCA-SVD implementation in GeolAttitude performs the following steps:
 #. Construct the centered coordinate matrix.
 #. Compute its Singular Value Decomposition using NumPy.
 #. Select the last right singular vector as the plane normal.
-#. Force the normal vector upward (:math:`n_z>0`).
+#. Normalize the normal vector and force it upward (:math:`n_z>0`).
 #. Compute dip, dip direction and right-hand-rule strike.
-#. Compute orthogonal residuals and RMSE.
+#. Compute orthogonal and vertical residual statistics.
 
 Computational Complexity
 ------------------------
