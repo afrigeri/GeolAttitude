@@ -317,9 +317,7 @@ class GeolAttitudeDockWidget(QDockWidget):
     def _update_output_basic(self):
         lines = [f"Sampled points: {len(self.points)}", ""]
         for idx, point in enumerate(self.points, 1):
-            lines.append(
-                f"{idx}: X={point.x:.3f}, Y={point.y:.3f}, Z={point.z:.3f}"
-            )
+            lines.append(f"{idx}: X={point.x:.3f}, Y={point.y:.3f}, Z={point.z:.3f}")
         self.output.setPlainText("\n".join(lines))
 
     # @staticmethod
@@ -367,7 +365,7 @@ class GeolAttitudeDockWidget(QDockWidget):
         lines = [
             "GeolAttitude results",
             "===================",
-            f"Selected points: {result['n']}",
+            f"Sampled points: {result['n']}",
             "",
             f"Best-fit plane: z = {result['a']:.8g} x + {result['b']:.8g} y + {result['c']:.8g}",
             f"Method: {self.fitMethod.currentData():s}",
@@ -393,9 +391,7 @@ class GeolAttitudeDockWidget(QDockWidget):
         lines.append("")
         lines.append("Points:")
         for idx, point in enumerate(self.points, 1):
-            lines.append(
-                f"{idx}: X={point.x:.3f}, Y={point.y:.3f}, Z={point.z:.3f}"
-            )
+            lines.append(f"{idx}: X={point.x:.3f}, Y={point.y:.3f}, Z={point.z:.3f}")
         self.output.setPlainText("\n".join(lines))
         if create_layer is None:
             create_layer = self.create_layer_check.isChecked()
