@@ -6,7 +6,8 @@ from .common import (
     base_result,
     normalize_vector,
     points_to_array,
-    point_plane_residuals
+    point_plane_residuals,
+    add_point_usage_fields
 )
 
 #from .utils import point_plane_residuals
@@ -162,5 +163,13 @@ def fit_ransac(
 
     result["max_abs_resid"] = max_abs_resid
     result["max_abs_vertical_residual"] = max_abs_vertical_residual
+    result["outliers"] = len(outlier_indices)
+    result["rejected_outliers"] = len(outlier_indices)
+
+    result = add_point_usage_fields(
+        result,
+        points,
+        inlier_indices=inlier_indices,
+        )
 
     return result

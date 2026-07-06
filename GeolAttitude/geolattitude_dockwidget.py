@@ -367,7 +367,7 @@ class GeolAttitudeDockWidget(QDockWidget):
             "Points:",
         ]
         if result["method"] == "ransac":
-            lines.append(f"Rejected outliers: {len(result['outlier_indices'])}")
+            lines.append(f"Rejected outliers: {result.get('rejected_outliers', 0)}")
         # Add points to the terminal display
         lines.append("Points:")
         for idx, point in enumerate(self.points, 1):
