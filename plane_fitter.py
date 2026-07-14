@@ -1,7 +1,6 @@
 """Plane-fitting dispatcher for GeolAttitude."""
 
 from .algorithms import fit_least_squares, fit_pca_svd, fit_ransac
-from .algorithms.common import compute_plane_statistics
 
 
 class PlaneFitter:

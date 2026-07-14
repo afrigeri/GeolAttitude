@@ -3,6 +3,9 @@ REPO_DIR = tpp
 
 .PHONY: default clean tests zip
 
+PYTHON := python
+RUFF := $(PYTHON) -m ruff
+
 default: tests zip
 
 clean:
@@ -16,6 +19,25 @@ clean:
 	rm -rf build dist $(PLUGINNAME).zip
 
 
+# Check formatting 
+format-check:
+	$(RUFF) format --check .
+
+# Format
+format:
+	$(RUFF) format .
+	$(RUFF) check --fix .
+
+
+# Check code without modifying files.
+lint:
+	$(RUFF) check .
+
+# Apply all safe automatic lint fixes.
+fix:
+	$(RUFF) check --fix .
+	$(RUFF) format .
+
 docs: html
 
 html:
@@ -24,11 +46,11 @@ html:
 tests:
 	cd .. && PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -p no:cacheprovider GeolAttitude/tests -v
 
-zip: clean
-	black .
+zip: clean format
 	rm -rf build/$(PLUGINNAME)
 	mkdir -p build/$(PLUGINNAME)
 	rsync -av \
+		--exclude "requirements.txt"\
 		--exclude ".git" \
 		--exclude ".github" \
 		--exclude "build" \

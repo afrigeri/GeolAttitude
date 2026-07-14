@@ -7,7 +7,8 @@ import numpy as np
 
 
 def points_to_array(points):
-    """Convert point dictionaries or DigitizedPoint objects to an Nx3 NumPy array."""
+    """Convert point dictionaries or DigitizedPoint objects to an Nx3 NumPy
+    array."""
     if len(points) < 3:
         raise ValueError("At least three points are required.")
 
@@ -41,8 +42,7 @@ def normalize_vector(vector):
 
 
 def orientation_from_normal(normal):
-    """
-    Compute geological orientation from a plane normal.
+    """Compute geological orientation from a plane normal.
 
     Coordinates are assumed to be x=east, y=north, z=up.
     Dip direction is the azimuth of steepest descent, clockwise from north.
@@ -80,9 +80,9 @@ def orientation_from_normal(normal):
 def orientation_from_normal_old(normal):
     """Compute geological orientation from an upward-pointing plane normal.
 
-    Coordinates are assumed to be x=east, y=north, z=up.
-    Dip direction is the azimuth of steepest descent, clockwise from north.
-    Strike is returned using the right-hand rule.
+    Coordinates are assumed to be x=east, y=north, z=up. Dip direction
+    is the azimuth of steepest descent, clockwise from north. Strike is
+    returned using the right-hand rule.
     """
     normal = normalize_vector(normal)
 

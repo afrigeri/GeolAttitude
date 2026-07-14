@@ -2,11 +2,13 @@
 name=GeolAttitude
 qgisMinimumVersion=3.44
 qgisMaximumVersion=4.99
-description=A plugin for interactive estimation of the orientation of geologic planar features.  Computes geologic structures dip, dip direction and strike from interactively selected points sampled from a DTM raster.  Implements user-selectable fitting methods.
-version=0.2.11
+description=Plugin for for interactive estimation the attitude of geologic planar features from DTMs. Implements user-selectable fitting methods and uncertainty analysis.
+
+It is developed by a geologist, for geologists with the right attitude! 
+version=0.2.12
 author=Alessandro Frigeri
 email=alessandro.frigeri@inaf.it
-about=Interactive plug-in for photogeologic interpretations of geologic planar features. Compute geologic structures dip, dip direction and strike. Click points on imagery or map canvas, sample elevation from a selected DTM, fit a best-fit plane and compute structural attitude parameters. Designed for terrestrial and planetary projected DTMs. Implements user-selectable fitting methods.
+about=Interactive plug-in for photogeologic interpretations of geologic planar features. Computes geologic structures dip, dip direction and strike from interactively selected points sampled from a DTM raster. Click points on imagery or map canvas, sample elevation from a selected DTM, fit a best-fit plane and compute structural attitude parameters.  Designed for terrestrial and planetary projected DTMs. Implements user-selectable fitting methods. Implements user-selectable fitting methods.
 tracker=https://github.com/afrigeri/tpp
 repository=https://github.com/afrigeri/tpp
 category=Analysis

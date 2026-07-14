@@ -1,5 +1,4 @@
 import math
-import numpy as np
 import pytest
 
 # from algorithms.plane_fitter import PlaneFitter

@@ -6,20 +6,11 @@ from qgis.PyQt.QtCore import Qt
 
 QGIS_VERSION_INT = Qgis.QGIS_VERSION_INT
 IS_QGIS4 = QGIS_VERSION_INT >= 40000
+"""From qgis.PyQt.QtCore import Qt, QVariant, QCoreApplication from
+qgis.PyQt.QtGui import QIcon from qgis.PyQt.QtWidgets import ( QMessageBox,
+QDockWidget, QWidget, QVBoxLayout, QPushButton, QLabel, QTextEdit,
 
-"""
-from qgis.PyQt.QtCore import Qt, QVariant, QCoreApplication
-from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import (
-    QMessageBox,
-    QDockWidget,
-    QWidget,
-    QVBoxLayout,
-    QPushButton,
-    QLabel,
-    QTextEdit,
-    QComboBox,
-)
+QComboBox, )
 """
 
 try:

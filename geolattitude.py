@@ -83,7 +83,11 @@ class GeolAttitude:
             callback=self.run,
             parent=self.iface.mainWindow(),
             checkable=True,
-            status_tip=self.tr("Compute dip and dip direction from DTM-sampled points"),
+            status_tip=self.tr(
+                "\
+            Compute dip and dip direction from DTM-sampled points\
+            "
+            ),
         )
 
     def unload(self):

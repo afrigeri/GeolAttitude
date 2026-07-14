@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """GeolAttitude dock widget.
 
-The UI is built programmatically to avoid Qt Designer/PyQt version friction in
-QGIS 4 development builds while preserving a Plugin Builder style layout.
+The UI is built programmatically to avoid Qt Designer/PyQt version
+friction in QGIS 4 development builds while preserving a Plugin Builder
+style layout.
 
 Hopefully this will enable a simpler transition to 4.0
 """
@@ -19,7 +20,6 @@ from qgis.PyQt.QtCore import pyqtSignal, QVariant
 from qgis.PyQt.QtGui import QColor
 from qgis.PyQt.QtWidgets import (
     QCheckBox,
-    QComboBox,
     QDockWidget,
     QFileDialog,
     QHBoxLayout,
@@ -162,7 +162,8 @@ class GeolAttitudeDockWidget(QDockWidget):
         return QgsProject.instance().mapLayer(layer_id)
 
     def add_point(self, map_point):
-        """Add a clicked map point after sampling elevation from the selected DTM."""
+        """Add a clicked map point after sampling elevation from the selected
+        DTM."""
         raster = self.selected_raster()
         if raster is None:
             QMessageBox.warning(
@@ -270,7 +271,9 @@ class GeolAttitudeDockWidget(QDockWidget):
     def _geometry_type(self, name):
         """Return a geometry type compatible with QGIS 3/4 rubber bands."""
         try:
-            from qgis.core import Qgis  # pylint: disable=import-outside-toplevel
+            from qgis.core import (
+                Qgis,
+            )  # pylint: disable=import-outside-toplevel
 
             if name == "line":
                 return Qgis.GeometryType.Line
@@ -421,7 +424,8 @@ class GeolAttitudeDockWidget(QDockWidget):
             self.create_result_layer(result)
 
     def create_result_layer(self, result):
-        """Create a PointZ memory layer containing sampled points and attitude attributes."""
+        """Create a PointZ memory layer containing sampled points and attitude
+        attributes."""
         crs_auth = self.canvas.mapSettings().destinationCrs().authid()
         uri = "PointZ"
         if crs_auth:
@@ -449,23 +453,23 @@ class GeolAttitudeDockWidget(QDockWidget):
         features = []
         method = self.fitMethod.currentData()
 
-        orthogonal_residuals = result.get("orthogonal_residuals", [])
-        abs_orthogonal_residuals = result.get("abs_orthogonal_residuals", [])
+        # orthogonal_residuals = result.get("orthogonal_residuals", [])
+        # abs_orthogonal_residuals = result.get("abs_orthogonal_residuals", [])
 
         for idx, point in enumerate(self.points, 1):
             feat = QgsFeature(layer.fields())
             feat.setGeometry(QgsGeometry.fromPoint(QgsPoint(point.x, point.y, point.z)))
 
-            resid = (
-                orthogonal_residuals[idx - 1]
-                if idx - 1 < len(orthogonal_residuals)
-                else None
-            )
-            abs_resid = (
-                abs_orthogonal_residuals[idx - 1]
-                if idx - 1 < len(abs_orthogonal_residuals)
-                else None
-            )
+            # resid = (
+            #    orthogonal_residuals[idx - 1]
+            #    if idx - 1 < len(orthogonal_residuals)
+            #    else None
+            # )
+            # abs_resid = (
+            #    abs_orthogonal_residuals[idx - 1]
+            #    if idx - 1 < len(abs_orthogonal_residuals)
+            #    else None
+            # )
 
             feat.setAttributes(
                 [
@@ -498,7 +502,10 @@ class GeolAttitudeDockWidget(QDockWidget):
         if self.last_result is None and len(self.points) >= 3:
             self.compute_and_display(create_layer=False)
         path, _ = QFileDialog.getSaveFileName(
-            self, "Export GeolAttitude CSV", os.path.expanduser("~"), "CSV (*.csv)"
+            self,
+            "Export GeolAttitude CSV",
+            os.path.expanduser("~"),
+            "CSV (*.csv)",
         )
         if not path:
             return

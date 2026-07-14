@@ -13,6 +13,16 @@ The geometric elements are defined as:
 
 Plugin Builder 3 style QGIS 3.44 plugin to compute these quantities, also known as *structural attitude* from points sampled interactively on a DTM.
 
+## Why "GeolAttitude"?
+
+In geology, attitude refers to the orientation of a planar or linear geological feature, typically expressed as strike, dip, and dip direction.
+
+The name GeolAttitude also reflects the curiosity, rigor, and field-oriented mindset that characterize geological work, from the field to the office.
+
+## Motivation
+
+Geolattitude comes from an appendix of an old PhD thesis.  Orginally a GRASS GIS script, now it has been implemented as QGIS plug-in and new methods added.
+
 ## Instructions
 
 1. Load a projected DTM/elevation raster and optional imagery.
@@ -30,19 +40,11 @@ Use a projected CRS with linear XY units compatible with DTM elevation units. A 
 
 For planetary use, use an appropriate projected Moon/Mars/etc. CRS where XY units are metres.
 
-## Files
-
-This plugin follows a Plugin Builder 3-style layout for QGIS 3.4x:
-
-- `metadata.txt`
-- `__init__.py`
-- `geolattitude.py`
-- `geolattitude_dockwidget.py`
-- `geolattitude_maptool.py`
-- `resources.qrc`
-- `resources.py`
-- `pb_tool.cfg`
-
 ## Method
 
-The current version uses least-squares plane fitting. Coordinates are treated as x=east, y=north, z=up. Dip direction is the azimuth of steepest descent measured clockwise from north.
+Coordinates are treated as x=east, y=north, z=up. Dip direction is the azimuth of steepest descent measured clockwise from north.
+
+**Acknowledgements** This work is supported by
+ASI-INAF contract n.2023-3-HH.0 Esplorazione di
+Marte.
+

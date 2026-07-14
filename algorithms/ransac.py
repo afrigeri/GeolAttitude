@@ -50,8 +50,7 @@ def fit_ransac(
     min_inliers=3,
     random_seed=42,
 ):
-    """
-    Fit a plane using RANSAC.
+    """Fit a plane using RANSAC.
 
     Parameters
     ----------

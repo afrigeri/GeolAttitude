@@ -24,5 +24,6 @@ Contents
    installation
    quickstart
    algorithms
+   bootstrap
    api
    changelog
