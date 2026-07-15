@@ -1,5 +1,6 @@
 GeolAttitude
 ============
+(c) 2026 Alessandro Frigeri - Italian National Institute for Astrophysics (INAF)
 
 **GeolAttitude** is a QGIS plugin for estimating the orientation of geological planes in GIS picked 3D points.  The plug-in solves the three point problem within a GIS environment, where the user typically pick points over imagery while recording elevations from a DTM.
 
