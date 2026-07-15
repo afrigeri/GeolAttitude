@@ -189,6 +189,25 @@ Contributions, bug reports and feature requests are welcome.
 
 If GeolAttitude contributes to your scientific work, please cite the software repository and any associated scientific publication.
 
+Frigeri, A. (2026) *GeolAttitude: A QGIS plugin for estimating the attitude of geological planes from Digital Terrain Models*. Version 0.2.12. Available at: https://github.com/afrigeri/GeolAttitude (Accessed: Day Month Year).
+
+**Example**
+
+> Frigeri, A. (2026) *GeolAttitude: A QGIS plugin for estimating the attitude of geological planes from Digital Terrain Models*. Version 0.2.12. Available at: https://github.com/afrigeri/GeolAttitude (Accessed: put date here).
+
+```bibtex
+@software{Frigeri2026GeolAttitude,
+  author       = {Alessandro Frigeri},
+  title        = {{GeolAttitude}: A QGIS plugin for estimating the attitude of geological planes from Digital Terrain Models},
+  year         = {2026},
+  version      = {0.2.12},
+  url          = {https://github.com/afrigeri/GeolAttitude},
+  institution  = {Italian National Institute for Astrophysics (INAF)},
+  license      = {GPL-3.0},
+  note         = {QGIS plugin}
+}
+```
+
 ---
 
 # Acknowledgements
