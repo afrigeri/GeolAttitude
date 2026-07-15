@@ -1,7 +1,7 @@
 PLUGINNAME = GeolAttitude
-REPO_DIR = tpp
+REPO_DIR = GeolAttitude
 
-.PHONY: default clean tests zip
+.PHONY: default clean tests zip paper
 
 PYTHON := python
 RUFF := $(PYTHON) -m ruff
@@ -66,3 +66,12 @@ zip: clean format
 		--exclude ".DS_Store" \
 		./ build/$(PLUGINNAME)/
 	cd build && zip -r ../$(PLUGINNAME).zip $(PLUGINNAME)
+
+paper:
+	docker run --rm \
+		--platform linux/amd64 \
+		-v "$(PWD):/data" \
+		-u "$$(id -u):$$(id -g)" \
+		openjournals/inara \
+		-o pdf,crossref \
+		paper/paper.md
